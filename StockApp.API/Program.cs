@@ -1,3 +1,5 @@
+using StockApp.Domain.Interfaces;
+using StockApp.Infra.Data.Repositories;
 using StockApp.Infra.IoC;
 
 internal class Program
@@ -10,6 +12,7 @@ internal class Program
         builder.Services.AddInfrastructureAPI(builder.Configuration);
 
         builder.Services.AddControllers();
+        builder.Services.AddScoped<IProductRepository, ProductRepository>();  // Registro do repositório
 
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
@@ -24,6 +27,8 @@ internal class Program
         }
 
         app.UseHttpsRedirection();
+
+        app.UseRouting();
 
         app.UseAuthorization();
 
