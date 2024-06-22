@@ -65,5 +65,16 @@ namespace tp2_stockapp_ava.API.Controllers
             return NoContent();
         }
 
+        [HttpDelete("{id:int}", Name = "DeleteProduct")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var product = await _productRepository.GetById(id);
+            if (product == null)
+            {
+                return NotFound("Product not found");
+            }
+            await _productRepository.Remove(product);
+            return NoContent();
+        }
     }
 }
