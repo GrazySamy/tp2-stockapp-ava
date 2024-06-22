@@ -48,5 +48,22 @@ namespace tp2_stockapp_ava.API.Controllers
             await _productRepository.Create(product);
             return CreatedAtAction(nameof(GetById), new { id = product.Id }, product);
         }
+
+        [HttpPut(Name = "UpdateCategory")]
+        public async Task<IActionResult> Update(int id, Product product)
+        {
+            if (product == null)
+            {
+                return BadRequest("Update Data Invalid");
+            }
+
+            if (id != product.Id)
+            {
+                return BadRequest();
+            }
+            await _productRepository.Update(product);
+            return NoContent();
+        }
+
     }
 }
