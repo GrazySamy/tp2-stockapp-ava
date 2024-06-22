@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using StockApp.Application.DTOs;
 using StockApp.Domain.Entities;
 using StockApp.Domain.Interfaces;
 
@@ -35,6 +36,17 @@ namespace tp2_stockapp_ava.API.Controllers
                 return NotFound("Product not Found");
             }
             return Ok(product);
+        }
+
+        [HttpPost(Name = "CreateProduct")]
+        public async Task<ActionResult<Product>> Create(Product product)
+        {
+            if (product == null)
+            {
+                return BadRequest("Invalid Data");
+            }
+            await _productRepository.Create(product);
+            return CreatedAtAction(nameof(GetById), new { id = product.Id }, product);
         }
     }
 }
