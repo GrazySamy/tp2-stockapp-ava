@@ -19,6 +19,8 @@ namespace StockApp.Domain.Entities
         public int CategoryId { get; set; }
         #endregion
 
+        public Product(){}
+
         public Product(string name, string description, decimal price, int stock, string image)
         {
             ValidateDomain(name, description, price, stock, image);
