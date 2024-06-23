@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using StockApp.Application.DTOs;
 using StockApp.Domain.Entities;
 using StockApp.Domain.Interfaces;
@@ -7,6 +8,7 @@ namespace tp2_stockapp_ava.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class ProductsController : ControllerBase
     {
         private readonly IProductRepository _productRepository;
