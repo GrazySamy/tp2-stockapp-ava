@@ -23,5 +23,13 @@ namespace StockApp.Infra.Data.Repositories
             var user = await _userContext.Users.FindAsync(username);
             return user;
         }
+        public async Task<User> Add(User user)
+        {
+            user.EmailConfirmed = true;
+            user.LockoutEnabled = false;
+            _userContext.Add(user);
+            await _userContext.SaveChangesAsync();
+            return user;
+        }
     }
 }
