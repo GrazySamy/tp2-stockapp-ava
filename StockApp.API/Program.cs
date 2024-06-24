@@ -18,6 +18,17 @@ internal class Program
         builder.Services.AddControllers();
         builder.Services.AddScoped<IProductRepository, ProductRepository>();  // Registro do repositório
 
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("AllowAll", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            });
+        });
+
+
         var key = Encoding.ASCII.GetBytes(builder.Configuration["Jwt:SecretKey"]);
         builder.Services.AddAuthentication(options =>
         {
@@ -71,6 +82,8 @@ internal class Program
 
 
         var app = builder.Build();
+
+        app.UseCors("AllowAll");
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
