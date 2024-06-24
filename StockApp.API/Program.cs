@@ -12,6 +12,11 @@ internal class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
+        builder.Services.AddStackExchangeRedisCache(options =>
+        {
+            options.Configuration = builder.Configuration.GetConnectionString("Redis");
+        });
+
         // Add services to the container.
         builder.Services.AddInfrastructureAPI(builder.Configuration);
 
